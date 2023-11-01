@@ -10,13 +10,27 @@
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     <title>My Blogs</title>
 </head>
-<body>
-    <header>
-        <h1><a href="{% url 'home' %}">My Django Blogs</a></h1>
-    </header> 
-    <div>
-        {% block content %}
-        {% endblock content %}
-    </div>       
-</body>
+    <body>
+        <div>
+
+            <header>
+                <div class="nav-left">
+                    <h1><a href="{% url 'home' %}">My Django Blogs</a></h1>
+                </div>
+                <div class="nav-right">
+                    <a href="{% url 'post_new' %}">+ New Blog Post</a>
+                </div>       
+            </header> 
+            {% if user.is_authenticated %}
+            <p>Hi {{ user.username }}!</p>
+            <p><a href="{% url 'logout' %}">Log out</a></p>
+            {% else %}
+            <p>You are not logged in.</p>
+            <a href="{% url 'login' %}">Log In</a>
+            <a href="{% url 'signup' %}">Sign Up</a>
+            {% endif %}
+            {% block content %}
+            {% endblock content %}
+        </div>
+    </body>
 </html>
